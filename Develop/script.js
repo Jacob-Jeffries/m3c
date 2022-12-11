@@ -87,6 +87,7 @@ function generatePassword() {
     }
 }
 
+//I'm to lazy to code this multiple times!
 function getRandomInt(max){
   return Math.floor(Math.random()*max);
 }
@@ -98,6 +99,7 @@ function passAlgo(a,criteria){
     upper: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z'],
     numbers: ['1','2','3','4','5','6','7','8','9','0'],
     symbols: ['!','#','$','%','&','(',')','*','+',',','-','.',':','<','>','=','?','@','[',']','^','_','`','{','}','|','~']}
+    //I intentionally left out single and double quotes mas I've seen that play havoc with SQL - of course you could do an escape string...
 
   let password = [];
   let passwordText;
@@ -108,7 +110,9 @@ function passAlgo(a,criteria){
     ri = getRandomInt(4); //generated random integer to select an array from the pool 
     console.log(ri);
 
-    while(!criteria[ri]){
+    //I have no idea how you would do this without a while loop - This is a special loop that others might not know about - it'd be a lot of hard coding!
+    //This while loop tests for criteria we've selected during each position character selection
+    while(!criteria[ri]){ 
         ri = getRandomInt(4);
       }
     
@@ -129,14 +133,15 @@ function passAlgo(a,criteria){
     }
     console.log(password);
   }
-let passtext = "";
+  let passtext = "";
 
-for(x=0; x<password.length; x ++){
-  passtext = passtext.concat(password[x]);
-}
+  //This bit of code concats the array into a single string
+  for(x = 0; x < password.length; x++){
+    passtext = passtext.concat(password[x]);
+  }
 
-console.log(passtext);
-return passtext; //outputs the text string back to generatePassword() function
+  console.log(passtext);
+  return passtext; //outputs the text string back to generatePassword() function
 }
 
 //I tried to anticipate incorrect input and programmed for that
