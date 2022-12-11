@@ -81,7 +81,7 @@ function generatePassword() {
   "\nContain Numerals: " + contNumber +
   "\nContain Special Characters: " + contSymbol +
   "\n\nDo you accept these criteria?")){
-      //future code
+      passAlgo(passLength, contLower, contUpper, contNumber, contSymbol);
     }else{
       if(confirm("Start Over?")){
         generatePassword();
@@ -89,9 +89,24 @@ function generatePassword() {
         return;
       }
     }
+}
+let a; //Length
+let b; //Lower
+let c; //Upper
+let d; //Numerals
+let e; //Special Characters
 
+function passAlgo(a,b,c,d,e){
+  let pool = {
+    letters: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'],
+    numbers: ['1','2','3','4','5','6','7','8','9','0'],
+    symbols: ['!','#','$','%','&','(',')','*','+',',','-','.',':','<','>','=','?','@','[',']','^','_','`','{','}','|','~']}
 
+  let password;
 
+  for( i = 1; i in (a-1); i++){
+    password = 
 
+  }
 
 }
