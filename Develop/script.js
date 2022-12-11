@@ -17,8 +17,8 @@ generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
   var passLength = prompt("Enter a value between 8 - 128 to set your password length");
-  console.log(typeof(passLength));
-  console.log(passLength);
+  // console.log(typeof(passLength));
+  // console.log(passLength);
 
   //Checking equality with NaN is always false - Like WTF JS ???
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
@@ -28,7 +28,7 @@ function generatePassword() {
     if(confirm("You have entered something that is not a number. Try again.")){
       generatePassword();}
     else{
-      return;
+      return "Try Again";
     }
   }else if(passLength >= 8 && passLength <= 128){
     alert("Good Choice, the length you chose is: " + passLength);
@@ -68,7 +68,7 @@ function generatePassword() {
     }
   }
 
-  console.log(criteria);
+  // console.log(criteria);
 
   if(confirm("Your password criteria:\n\nLength: " + passLength +
   "\nContain Lower Case Letters: " + criteria[0] +
@@ -76,7 +76,7 @@ function generatePassword() {
   "\nContain Numerals: " + criteria[2] +
   "\nContain Special Characters: " + criteria[3] +
   "\n\nDo you accept these criteria?")){
-      let password = passAlgo(passLength, criteria);
+      let password = passAlgo(passLength, criteria); //I didn't want to clunk this up so I made a new function
       return password; //Passes the generated password string back to the writePassword()
     }else{
       if(confirm("Start Over?")){
@@ -93,7 +93,7 @@ function getRandomInt(max){
 }
 
 function passAlgo(a,criteria){
-  console.log(a,criteria);
+  // console.log(a,criteria);
   let pool = { //I hard coded the pool of optional character
     lower: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'],
     upper: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z'],
@@ -108,15 +108,15 @@ function passAlgo(a,criteria){
   //main password generation algorithm 
   for(let i = 0; i < a; i++){ //iterates through each position
     ri = getRandomInt(4); //generated random integer to select an array from the pool 
-    console.log(ri);
+    // console.log(ri);
 
-    //I have no idea how you would do this without a while loop - This is a special loop that others might not know about - it'd be a lot of hard coding!
+    //I have no idea how you would do this without a while loop - it'd be a lot of hard coding!
     //This while loop tests for criteria we've selected during each position character selection
     while(!criteria[ri]){ 
         ri = getRandomInt(4);
       }
     
-    console.log(ri);
+    // console.log(ri);
 
     //This code pushes a new character / number into our password array
     if(ri == 0 && criteria[0] === true){
@@ -131,17 +131,19 @@ function passAlgo(a,criteria){
       alert("Something went really wrong and you should move to the forest and forget about computers!");
       return;
     }
-    console.log(password);
+    // console.log(password);
   }
   let passtext = "";
 
   //This bit of code concats the array into a single string
+  //I tried toString() first, but it left in the commas
   for(x = 0; x < password.length; x++){
     passtext = passtext.concat(password[x]);
   }
 
-  console.log(passtext);
-  return passtext; //outputs the text string back to generatePassword() function
+  // console.log(passtext);
+  //outputs the text string back to generatePassword() function
+  return passtext; 
 }
 
 //I tried to anticipate incorrect input and programmed for that
