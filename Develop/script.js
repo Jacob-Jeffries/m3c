@@ -47,22 +47,24 @@ function generatePassword() {
   } 
 
   //Ok, The next bit of code will accept the password criteria from the user
-  let contLower = false;
-  let contUpper = false;
-  let contNumber = false;
-  let contSymbol = false;
+  // let contLower = false;
+  // let contUpper = false;
+  // let contNumber = false;
+  // let contSymbol = false;
 
-  contLower = confirm("Would you like your new password to contain lower case letters?");
-  contUpper = confirm("Would you like your password to contain upper case letters?");
-  contNumber = confirm("Would you like your password to contain numerals?");
-  contSymbol = confirm("Would you like your password to contain special characters?");
+  const criteria = [];
 
-  if(!contLower && !contUpper && !contNumber && !contSymbol){
+  criteria.push(confirm("Would you like your new password to contain lower case letters?"));
+  criteria.push(confirm("Would you like your password to contain upper case letters?"));
+  criteria.push(confirm("Would you like your password to contain numerals?"));
+  criteria.push(confirm("Would you like your password to contain special characters?"));
+
+  if(!criteria[0] && !criteria[1] && !criteria[2] && !criteria[3]){
     if(confirm("Your password criteria:\n\nLength: " + passLength +
-    "\nContain Lower Case Letters: " + contLower +
-    "\nContain Upper Case Letters: " + contUpper +
-    "\nContain Numerals: " + contNumber +
-    "\nContain Special Characters: " + contSymbol +
+    "\nContain Lower Case Letters: " + criteria[0] +
+    "\nContain Upper Case Letters: " + criteria[1] +
+    "\nContain Numerals: " + criteria[2] +
+    "\nContain Special Characters: " + criteria[3] +
     "\n\nYour password must contain something, please start over.")){
       generatePassword();
     }else{
@@ -70,18 +72,16 @@ function generatePassword() {
     }
   }
 
-  console.log(contLower);
-  console.log(contUpper);
-  console.log(contNumber);
-  console.log(contSymbol);
+  console.log(criteria);
 
   if(confirm("Your password criteria:\n\nLength: " + passLength +
-  "\nContain Lower Case Letters: " + contLower +
-  "\nContain Upper Case Letters: " + contUpper +
-  "\nContain Numerals: " + contNumber +
-  "\nContain Special Characters: " + contSymbol +
+  "\nContain Lower Case Letters: " + criteria[0] +
+  "\nContain Upper Case Letters: " + criteria[1] +
+  "\nContain Numerals: " + criteria[2] +
+  "\nContain Special Characters: " + criteria[3] +
   "\n\nDo you accept these criteria?")){
-      passAlgo(passLength, contLower, contUpper, contNumber, contSymbol);
+      let password = passAlgo(passLength, criteria);
+      return password;
     }else{
       if(confirm("Start Over?")){
         generatePassword();
@@ -90,23 +90,43 @@ function generatePassword() {
       }
     }
 }
-let a; //Length
-let b; //Lower
-let c; //Upper
-let d; //Numerals
-let e; //Special Characters
 
-function passAlgo(a,b,c,d,e){
+function getRandomInt(max){
+  return Math.floor(Math.random()*max);
+}
+
+function passAlgo(a,criteria){
+  console.log(a,criteria);
   let pool = {
-    letters: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'],
+    lower: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'],
+    upper: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z'],
     numbers: ['1','2','3','4','5','6','7','8','9','0'],
     symbols: ['!','#','$','%','&','(',')','*','+',',','-','.',':','<','>','=','?','@','[',']','^','_','`','{','}','|','~']}
 
-  let password;
+  let password = [];
+  let passwordText;
+  let ri; //This variable will denote which array in the pool object to pull from
 
-  for( i = 1; i in (a-1); i++){
-    password = 
+  
 
+  for(let i = 0; i < a; i++){
+    ri = getRandomInt(4);
+    console.log(ri);
+
+    if(ri == 0 && b === true){
+      password.push(pool.lower[getRandomInt(pool.lower.length)]);
+    }else if(ri == 1 && c === true){
+      password.push(pool.upper[getRandomInt(pool.upper.length)]);
+    }else if(ri == 2 && d === true){
+      password.push(pool.numbers[getRandomInt(pool.numbers.length)]);
+    }else if(ri == 3 && e === true){
+      password.push(pool.symbols[getRandomInt(pool.symbols.length)]);
+    }else{
+      alert("Something went really wrong and you should move to the forest and forget about computers!");
+      return;
+    }
+    console.log(password);
   }
-
+passwordText = password.toString();
+return passwordText;
 }
