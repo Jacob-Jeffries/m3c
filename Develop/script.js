@@ -20,10 +20,10 @@ function generatePassword() {
   console.log(typeof(passLength));
   console.log(passLength);
 
-//Checking equality with NaN is always false - Like WTF JS ???
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
-//This bit of code makes sure that the user only enters the correct values fot the length
-//Then if they cannot handle it it kicks them out of the function
+  //Checking equality with NaN is always false - Like WTF JS ???
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+  //This bit of code makes sure that the user only enters the correct values fot the length
+  //Then if they cannot handle it it kicks them out of the function
   if(isNaN(parseInt(passLength))){
     if(confirm("You have entered something that is not a number. Try again.")){
       generatePassword();}
@@ -45,6 +45,53 @@ function generatePassword() {
       return;
     }
   } 
+
+  //Ok, The next bit of code will accept the password criteria from the user
+  let contLower = false;
+  let contUpper = false;
+  let contNumber = false;
+  let contSymbol = false;
+
+  contLower = confirm("Would you like your new password to contain lower case letters?");
+  contUpper = confirm("Would you like your password to contain upper case letters?");
+  contNumber = confirm("Would you like your password to contain numerals?");
+  contSymbol = confirm("Would you like your password to contain special characters?");
+
+  if(!contLower && !contUpper && !contNumber && !contSymbol){
+    if(confirm("Your password criteria:\n\nLength: " + passLength +
+    "\nContain Lower Case Letters: " + contLower +
+    "\nContain Upper Case Letters: " + contUpper +
+    "\nContain Numerals: " + contNumber +
+    "\nContain Special Characters: " + contSymbol +
+    "\n\nYour password must contain something, please start over.")){
+      generatePassword();
+    }else{
+      return;
+    }
+  }
+
+  console.log(contLower);
+  console.log(contUpper);
+  console.log(contNumber);
+  console.log(contSymbol);
+
+  if(confirm("Your password criteria:\n\nLength: " + passLength +
+  "\nContain Lower Case Letters: " + contLower +
+  "\nContain Upper Case Letters: " + contUpper +
+  "\nContain Numerals: " + contNumber +
+  "\nContain Special Characters: " + contSymbol +
+  "\n\nDo you accept these criteria?")){
+      //future code
+    }else{
+      if(confirm("Start Over?")){
+        generatePassword();
+      }else{
+        return;
+      }
+    }
+
+
+
 
 
 }
