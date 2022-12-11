@@ -1,24 +1,3 @@
-# Password Generator
-
-## Description
-
-This is a simple web application that can generate a random password between 8 & 128 characters that can optionally include lower case letters, upper case letters, numerals, and select special characters.
-
-https://jacob-jeffries.github.io/m3c/
-
-![Screenshot](./assets/images/screenshot.png)
-![App in use](./assets/images/shot2.png)
-
-## Installation
-
-This is a publicly hosted site, no installation necessary.
-
-## Usage
-
-To use this app simply click on the Generate Password button and follow the onscreen prompts.
-
-## License
-
 MIT License
 
 Copyright (c) [2022] [Jacob Jeffries]
