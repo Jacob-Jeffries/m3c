@@ -47,11 +47,7 @@ function generatePassword() {
   } 
 
   //Ok, The next bit of code will accept the password criteria from the user
-  // let contLower = false;
-  // let contUpper = false;
-  // let contNumber = false;
-  // let contSymbol = false;
-
+  //I tried doing this with individual variables first, but the array works better!
   const criteria = [];
 
   criteria.push(confirm("Would you like your new password to contain lower case letters?"));
@@ -81,7 +77,7 @@ function generatePassword() {
   "\nContain Special Characters: " + criteria[3] +
   "\n\nDo you accept these criteria?")){
       let password = passAlgo(passLength, criteria);
-      return password;
+      return password; //Passes the generated password string back to the writePassword()
     }else{
       if(confirm("Start Over?")){
         generatePassword();
@@ -97,7 +93,7 @@ function getRandomInt(max){
 
 function passAlgo(a,criteria){
   console.log(a,criteria);
-  let pool = {
+  let pool = { //I hard coded the pool of optional character
     lower: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'],
     upper: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z'],
     numbers: ['1','2','3','4','5','6','7','8','9','0'],
@@ -107,19 +103,25 @@ function passAlgo(a,criteria){
   let passwordText;
   let ri; //This variable will denote which array in the pool object to pull from
 
-  
-
-  for(let i = 0; i < a; i++){
-    ri = getRandomInt(4);
+  //main password generation algorithm 
+  for(let i = 0; i < a; i++){ //iterates through each position
+    ri = getRandomInt(4); //generated random integer to select an array from the pool 
     console.log(ri);
 
-    if(ri == 0 && b === true){
+    while(!criteria[ri]){
+        ri = getRandomInt(4);
+      }
+    
+    console.log(ri);
+
+    //This code pushes a new character / number into our password array
+    if(ri == 0 && criteria[0] === true){
       password.push(pool.lower[getRandomInt(pool.lower.length)]);
-    }else if(ri == 1 && c === true){
+    }else if(ri == 1 && criteria[1] === true){
       password.push(pool.upper[getRandomInt(pool.upper.length)]);
-    }else if(ri == 2 && d === true){
+    }else if(ri == 2 && criteria[2] === true){
       password.push(pool.numbers[getRandomInt(pool.numbers.length)]);
-    }else if(ri == 3 && e === true){
+    }else if(ri == 3 && criteria[3] === true){
       password.push(pool.symbols[getRandomInt(pool.symbols.length)]);
     }else{
       alert("Something went really wrong and you should move to the forest and forget about computers!");
@@ -127,6 +129,14 @@ function passAlgo(a,criteria){
     }
     console.log(password);
   }
-passwordText = password.toString();
-return passwordText;
+let passtext = "";
+
+for(x=0; x<password.length; x ++){
+  passtext = passtext.concat(password[x]);
 }
+
+console.log(passtext);
+return passtext; //outputs the text string back to generatePassword() function
+}
+
+//I tried to anticipate incorrect input and programmed for that
